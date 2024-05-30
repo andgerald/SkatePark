@@ -8,7 +8,6 @@ const findAll = async () => {
 };
 
 const remove = async (id) => {
-  [id];
   const result = await pool.query(
     "DELETE FROM skaters WHERE id=$1 RETURNING *",
     [id]
@@ -16,9 +15,18 @@ const remove = async (id) => {
   return result.rows[0];
 };
 
+const updateState = async (id, estado) => {
+  const result = await pool.query(
+    "UPDATE skaters SET estado= $2 WHERE id= $1 RETURNING *",
+    [id, estado]
+  );
+
+  return result.rows[0];
+};
+
 export const skatersModel = {
   findAll,
   // create,
   remove,
-  // update,
+  updateState,
 };
