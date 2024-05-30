@@ -28,6 +28,13 @@ const remove = async (req, res) => {
   }
 };
 
+const updateState = async (req, res) => {
+  const { id } = req.params;
+  const { estado } = req.body;
+  const skater = await skatersModel.updateState(id, estado);
+  res.status(200).send({ message: "Estado actualizado con éxito", skater });
+};
+
 const home = async (req, res) => {
   try {
     const skaters = await skatersModel.findAll();
@@ -62,6 +69,7 @@ const login = (req, res) => {
 export const skatersController = {
   findAll,
   remove,
+  updateState,
   home,
   admin,
   registro,
