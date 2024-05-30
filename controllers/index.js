@@ -51,10 +51,19 @@ const admin = async (req, res) => {
     });
   }
 };
+const registro = (req, res) => {
+  res.render("Registro");
+};
+
+const login = (req, res) => {
+  res.render("Login");
+};
 
 export const skatersController = {
   findAll,
   remove,
   home,
   admin,
+  registro,
+  login,
 };
