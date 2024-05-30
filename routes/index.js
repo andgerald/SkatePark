@@ -13,5 +13,7 @@ router.get("/login", skatersController.login);
 router.get("/skaters", skatersController.findAll);
 //ruta delete para eliminar un skaters por su id
 router.delete("/skaters/:id", skatersController.remove);
+//ruta para actulizar el estado
+router.put("/skaters/status/:id", skatersController.updateState);
 
 export default router;
