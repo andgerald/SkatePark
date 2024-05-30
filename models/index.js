@@ -7,6 +7,7 @@ const findAll = async () => {
   return result.rows;
 };
 
+//Se elimina un skater segun su id
 const remove = async (id) => {
   const result = await pool.query(
     "DELETE FROM skaters WHERE id=$1 RETURNING *",
@@ -15,6 +16,7 @@ const remove = async (id) => {
   return result.rows[0];
 };
 
+// se actulizan datos
 const update = async (nombre, anos_experiencia, especialidad, id) => {
   const result = await pool.query(
     "UPDATE skaters SET nombre =$1, anos_experiencia = $2, especialidad= $3 WHERE id= $4 RETURNING *",
@@ -23,6 +25,7 @@ const update = async (nombre, anos_experiencia, especialidad, id) => {
   return result.rows[0];
 };
 
+//se actuliza el estado
 const updateState = async (id, estado) => {
   const result = await pool.query(
     "UPDATE skaters SET estado= $2 WHERE id= $1 RETURNING *",
