@@ -27,6 +27,16 @@ const remove = async (req, res) => {
     });
   }
 };
+const update = async (req, res) => {
+  const { id, nombre, anos_experiencia, especialidad } = req.body;
+  const skater = await skatersModel.update(
+    nombre,
+    anos_experiencia,
+    especialidad,
+    id
+  );
+  res.status(200).send({ message: "Datos actualizados con éxito", skater });
+};
 
 const updateState = async (req, res) => {
   const { id } = req.params;
@@ -69,6 +79,7 @@ const login = (req, res) => {
 export const skatersController = {
   findAll,
   remove,
+  update,
   updateState,
   home,
   admin,
