@@ -6,9 +6,12 @@ const router = Router();
 //ruta get para handlebars
 router.get("/", skatersController.home);
 router.get("/admin", skatersController.admin);
+router.get("/registro", skatersController.registro);
+router.get("/login", skatersController.login);
 
 //ruta get para traer todos los skaters desde la base de datos
-router.delete("/skaters/:id", skatersController.remove);
+router.get("/skaters", skatersController.findAll);
 //ruta delete para eliminar un skaters por su id
+router.delete("/skaters/:id", skatersController.remove);
 
 export default router;
