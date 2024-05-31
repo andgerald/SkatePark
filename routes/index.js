@@ -8,6 +8,7 @@ router.get("/", skatersController.home);
 router.get("/admin", skatersController.admin);
 router.get("/registro", skatersController.registro);
 router.get("/login", skatersController.login);
+//ruta login muestra la vista de perfil verificando el token
 router.get("/perfil", verifyToken, skatersController.perfil);
 //ruta para login
 router.post("/login", skatersController.loginSkaters);
@@ -20,5 +21,7 @@ router.delete("/skaters/:id", skatersController.remove);
 router.put("/skaters", skatersController.update);
 //ruta para actulizar el estado
 router.put("/skaters/status/:id", skatersController.updateState);
+//ruta para crear un skater
+router.post("/skaters", skatersController.create);
 
 export default router;
