@@ -20,7 +20,6 @@ const create = async (
     "INSERT INTO skaters (email, nombre, password, anos_experiencia, especialidad, foto, estado) VALUES ($1,$2,$3,$4,$5,$6,$7)",
     [email, nombre, password, anos_experiencia, especialidad, foto, false]
   );
-  console.log(result, "result");
   return result.rows[0];
 };
 
