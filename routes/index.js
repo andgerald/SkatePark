@@ -1,6 +1,6 @@
 import { skatersController } from "../controllers/index.js";
+import { verifyToken } from "../middleware/jwt.js";
 import { Router } from "express";
-
 const router = Router();
 
 //ruta get para  vistas de handlebars
@@ -8,7 +8,7 @@ router.get("/", skatersController.home);
 router.get("/admin", skatersController.admin);
 router.get("/registro", skatersController.registro);
 router.get("/login", skatersController.login);
-
+router.get("/perfil", verifyToken, skatersController.perfil);
 //ruta para login
 router.post("/login", skatersController.loginSkaters);
 
