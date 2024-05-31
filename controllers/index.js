@@ -94,6 +94,19 @@ const login = (req, res) => {
   res.render("Login");
 };
 
+const perfil = async (req, res) => {
+  const email = req.skater.email;
+  try {
+    const skater = await skatersModel.findByEmail(email);
+    res.render("Perfil", { skater });
+  } catch (e) {
+    res.status(500).send({
+      error: `Algo salió mal... ${e}`,
+      code: 500,
+    });
+  }
+};
+
 export const skatersController = {
   findAll,
   remove,
@@ -104,4 +117,5 @@ export const skatersController = {
   admin,
   registro,
   login,
+  perfil,
 };
