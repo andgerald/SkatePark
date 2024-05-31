@@ -9,6 +9,9 @@ router.get("/admin", skatersController.admin);
 router.get("/registro", skatersController.registro);
 router.get("/login", skatersController.login);
 
+//ruta para login
+router.post("/login", skatersController.loginSkaters);
+
 //ruta get para traer todos los skaters desde la base de datos
 router.get("/skaters", skatersController.findAll);
 //ruta delete para eliminar un skaters por su id
