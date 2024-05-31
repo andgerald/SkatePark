@@ -37,16 +37,22 @@ const updateState = async (id, estado) => {
 
 const loginSkaters = async (email, password) => {
   const result = await pool.query(
-    "SELECT email, password FROM skaters WHERE email=$1 AND password = $2",
+    "SELECT * FROM skaters WHERE email=$1 AND password = $2",
     [email, password]
   );
-  console.log(email);
+  return result.rows[0];
+};
+
+const findByEmail = async (email) => {
+  const result = await pool.query("SELECT * FROM skaters WHERE email =$1", [
+    email,
+  ]);
   return result.rows[0];
 };
 
 export const skatersModel = {
   findAll,
-  // create,
+  findByEmail,
   remove,
   update,
   updateState,
