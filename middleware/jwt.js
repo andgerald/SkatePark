@@ -7,11 +7,11 @@ export const verifyToken = (req, res, next) => {
   if (!token) {
     return res.status(401).send("No hay token, no esta Autorizado");
   } else {
-    jwt.verify(token, SECRET_KEY, (err, data) => {
+    jwt.verify(token, SECRET_KEY, (err, skater) => {
       if (err) {
         res.status(403).send("Token inválido o ha expirado");
       }
-      req.skaters = data;
+      req.skater = skater;
       next();
     });
   }
