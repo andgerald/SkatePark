@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -10,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "bootstrap": "^4.5.3",
+    "dotenv": "^16.4.5",
     "express": "^4.17.1",
     "express-fileupload": "^1.2.0",
     "express-handlebars": "^5.2.0",
@@ -17,6 +19,7 @@
     "pg": "^8.5.1"
   },
   "devDependencies": {
+    "@types/express-handlebars": "^6.0.0",
     "nodemon": "^3.1.0"
   }
 }
