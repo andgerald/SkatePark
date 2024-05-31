@@ -35,10 +35,20 @@ const updateState = async (id, estado) => {
   return result.rows[0];
 };
 
+const loginSkaters = async (email, password) => {
+  const result = await pool.query(
+    "SELECT email, password FROM skaters WHERE email=$1 AND password = $2",
+    [email, password]
+  );
+  console.log(email);
+  return result.rows[0];
+};
+
 export const skatersModel = {
   findAll,
   // create,
   remove,
   update,
   updateState,
+  loginSkaters,
 };

@@ -1,4 +1,8 @@
 import { skatersModel } from "../models/index.js";
+import jwt from "jsonwebtoken";
+import "dotenv/config";
+
+const { SECRET_KEY } = process.env;
 
 const findAll = async (req, res) => {
   try {
@@ -45,6 +49,20 @@ const updateState = async (req, res) => {
   res.status(200).send({ message: "Estado actualizado con éxito", skater });
 };
 
+const loginSkaters = async (req, res) => {
+  const { email, password } = req.body;
+  if (!email || !password) {
+    return res.status(400).send({ error: "Email y password son requeridos" });
+  }
+  const skater = await skatersModel.loginSkaters(email, password);
+  if (!skater) {
+    return res.status(401).send({ error: "Email o password incorrectos" });
+  }
+  const token = jwt.sign({ id: skater.id, email: skater.email }, SECRET_KEY);
+
+  res.status(200).send(token);
+};
+
 const home = async (req, res) => {
   try {
     const skaters = await skatersModel.findAll();
@@ -81,6 +99,7 @@ export const skatersController = {
   remove,
   update,
   updateState,
+  loginSkaters,
   home,
   admin,
   registro,
