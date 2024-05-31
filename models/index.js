@@ -7,6 +7,23 @@ const findAll = async () => {
   return result.rows;
 };
 
+//Se crea un skater
+const create = async (
+  email,
+  nombre,
+  password,
+  anos_experiencia,
+  especialidad,
+  foto
+) => {
+  const result = await pool.query(
+    "INSERT INTO skaters (email, nombre, password, anos_experiencia, especialidad, foto, estado) VALUES ($1,$2,$3,$4,$5,$6,$7)",
+    [email, nombre, password, anos_experiencia, especialidad, foto, false]
+  );
+  console.log(result, "result");
+  return result.rows[0];
+};
+
 //Se elimina un skater segun su id
 const remove = async (id) => {
   const result = await pool.query(
@@ -52,6 +69,7 @@ const findByEmail = async (email) => {
 
 export const skatersModel = {
   findAll,
+  create,
   findByEmail,
   remove,
   update,

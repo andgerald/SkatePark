@@ -1,7 +1,11 @@
 import { skatersModel } from "../models/index.js";
 import jwt from "jsonwebtoken";
+import { fileURLToPath } from "url";
 import "dotenv/config";
+import path from "path";
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 const { SECRET_KEY } = process.env;
 
 const findAll = async (req, res) => {
@@ -13,6 +17,51 @@ const findAll = async (req, res) => {
       error: `Algo salió mal... ${e}`,
       code: 500,
     });
+  }
+};
+const create = async (req, res) => {
+  try {
+    const { email, nombre, password, anos_experiencia, especialidad } =
+      req.body;
+
+    if (!req.files || !req.files.foto) {
+      return res.status(400).send({ error: "Foto es requerida" });
+    }
+
+    const { foto } = req.files;
+    const { name } = foto;
+    const uploadsPath = path.join(__dirname, "../public/uploads");
+    const pathPhoto = path.join(uploadsPath, name);
+    foto.mv(pathPhoto, async (err) => {
+      if (err) {
+        console.error(err);
+        return res.status(500).send({ error: "Error al subir la foto" });
+      }
+
+      const foto = `/uploads/${name}`;
+
+      // Crear el nuevo skater
+      try {
+        await skatersModel.create(
+          email,
+          nombre,
+          password,
+          anos_experiencia,
+          especialidad,
+          foto
+        );
+
+        res.status(201).redirect("/");
+      } catch (error) {
+        console.error(error);
+        res
+          .status(500)
+          .send({ error: "Error al crear el skater en la base de datos" });
+      }
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ error: "Algo salió mal..." });
   }
 };
 
@@ -109,6 +158,7 @@ const perfil = async (req, res) => {
 
 export const skatersController = {
   findAll,
+  create,
   remove,
   update,
   updateState,
